@@ -63,6 +63,11 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
+        {productsList.length === 0 && (
+          <p>
+            Nenhum produto foi encontrado
+          </p>
+        )}
         {itemList}
 
         {categories.map((category) => (
@@ -76,10 +81,7 @@ class Home extends Component {
           </button>
         ))}
 
-        <Link
-          to="/shoppingcart"
-          data-testid="shopping-cart-button"
-        >
+        <Link to="/shoppingcart" data-testid="shopping-cart-button">
           Carrinho de Compras
         </Link>
       </div>
