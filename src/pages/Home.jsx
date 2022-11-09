@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { getCategories } from '../services/api';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   state = {
@@ -39,6 +40,12 @@ class Home extends Component {
           </button>
         ))}
 
+        <Link
+          to="/shoppingcart"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho de Compras
+        </Link>
       </div>
     );
   }
