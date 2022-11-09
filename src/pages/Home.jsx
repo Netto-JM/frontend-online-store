@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
-import { Link } from 'react-router-dom';
 
 class Home extends Component {
   state = {
     productsList: [],
     term: '',
     initialRender: true,
+    categories: [],
   };
+
+  componentDidMount() {
+    this.fetchCategories();
+  }
 
   clickHandler = async () => {
     const { term } = this.state;
@@ -25,27 +30,16 @@ class Home extends Component {
     this.setState({ term: value });
   };
 
-  render() {
-    const { productsList, term, initialRender } = this.state;
-
-    const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } />
-    ));
-
-    categories: [],
-  };
-
-  componentDidMount() {
-    this.fetchCategories();
-  }
-
   fetchCategories = async () => {
     const response = await api.getCategories();
     this.setState({ categories: response });
   };
 
   render() {
-    const { productsList, categories } = this.state;
+    const { productsList, term, initialRender, categories } = this.state;
+    const itemList = productsList.map((item) => (
+      <ItemCard { ...item } key={ item.id } />
+    ));
     return (
       <div>
         <label htmlFor="Home">
@@ -75,7 +69,6 @@ class Home extends Component {
           </p>
         )}
         {itemList}
-          </p>)}
 
         {categories.map((category) => (
           <button
