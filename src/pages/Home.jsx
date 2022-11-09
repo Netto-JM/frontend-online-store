@@ -63,11 +63,7 @@ class Home extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
-        {productsList.length === 0 && (
-          <p data-testid="home-initial-message">
-            Nenhum produto foi encontrado
-          </p>
-        )}
+        
         {itemList}
 
         {categories.map((category) => (
