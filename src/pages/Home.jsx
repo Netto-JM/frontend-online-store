@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
+import { Link } from 'react-router-dom';
 
 class Home extends Component {
   state = {
@@ -31,6 +32,20 @@ class Home extends Component {
       <ItemCard { ...item } key={ item.id } />
     ));
 
+    categories: [],
+  };
+
+  componentDidMount() {
+    this.fetchCategories();
+  }
+
+  fetchCategories = async () => {
+    const response = await api.getCategories();
+    this.setState({ categories: response });
+  };
+
+  render() {
+    const { productsList, categories } = this.state;
     return (
       <div>
         <label htmlFor="Home">
@@ -60,6 +75,25 @@ class Home extends Component {
           </p>
         )}
         {itemList}
+          </p>)}
+
+        {categories.map((category) => (
+          <button
+            type="button"
+            key={ category.id }
+            data-testid="category"
+            onClick={ () => this.getProductsFromCategoryAndQuery(category.id) }
+          >
+            {category.name}
+          </button>
+        ))}
+
+        <Link
+          to="/shoppingcart"
+          data-testid="shopping-cart-button"
+        >
+          Carrinho de Compras
+        </Link>
       </div>
     );
   }
