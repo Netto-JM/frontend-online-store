@@ -10,15 +10,13 @@
 
 .container-menu {
   background-color: rgb(191, 219, 193);
-  display: flex;
   min-width: 250px;
 }
 
 .text {
-  align-items: center;
-  display: flex;
+  border: 1px solid red;
+  display: inline;
   font-size: 1.5em;
-  justify-content: center;
   width: 100%;
 }
 
@@ -42,5 +40,6 @@
 
 ul {
   list-style: none;
+  padding: 0 5px 0 25px;
 }
 

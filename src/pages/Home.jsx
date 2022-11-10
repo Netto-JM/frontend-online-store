@@ -10,8 +10,8 @@ class Home extends Component {
   state = {
     productsList: [],
     term: '',
-    initialRender: true,
     categories: [],
+    initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
   };
 
   componentDidMount() {
@@ -20,13 +20,12 @@ class Home extends Component {
 
   clickHandler = async () => {
     const { term } = this.state;
-    const result = await api.getProductsFromCategoryAndQuery(undefined, term);
-    this.setState({ productsList: [], initialRender: false });
-    result.results.forEach(({ thumbnail, title, price, id }) => {
-      this.setState(({ productsList }) => ({
-        productsList: [...productsList, { thumbnail, title, price, id }],
-      }));
-    });
+    const { results } = await api.getProductsFromCategoryAndQuery(undefined, term);
+    const productsList = results.map(({ thumbnail, title, price, id }) => ({
+      thumbnail, title, price, id,
+    }));
+    const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
+    this.setState({ productsList, initialMsg });
   };
 
   changeHandler = ({ target: { value } }) => {
@@ -39,7 +38,7 @@ class Home extends Component {
   };
 
   render() {
-    const { productsList, term, initialRender, categories } = this.state;
+    const { productsList, term, categories, initialMsg } = this.state;
     const itemList = productsList.map((item) => (
       <ItemCard { ...item } key={ item.id } />
     ));
@@ -63,22 +62,12 @@ class Home extends Component {
           </Link>
         </div>
 
-        {initialRender && (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        )}
-
         <div className="container-main">
           <div className="container-menu">
             <Categories categories={ categories } />
           </div>
           <div className="container">
-            {productsList.length === 0 && (
-              <div className="text">
-                Nenhum produto foi encontrado
-              </div>
-            )}
+            <p data-testid="home-initial-message">{initialMsg}</p>
             {itemList}
           </div>
         </div>
