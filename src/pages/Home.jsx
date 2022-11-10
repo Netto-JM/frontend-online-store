@@ -69,7 +69,6 @@ class Home extends Component {
               type="button"
             >
               Carrinho de Compras
-              {/* oi */}
             </button>
           </Link>
         </div>
