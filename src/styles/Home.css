@@ -13,13 +13,6 @@
   min-width: 250px;
 }
 
-.text {
-  border: 1px solid red;
-  display: inline;
-  font-size: 1.5em;
-  width: 100%;
-}
-
 .container-header {
   background-color: lightgreen;
   display: flex;
