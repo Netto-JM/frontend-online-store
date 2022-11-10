@@ -12,7 +12,7 @@ class ItemCard extends Component {
           data-testid="product"
           className="container-item"
         >
-          <img src={ thumbnail } alt={ title } />
+          <img src={ thumbnail } alt={ title } width="100" height="100" />
           <p>{title}</p>
           <p>{`R$ ${newPrice}`}</p>
         </div>
