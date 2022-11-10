@@ -28,6 +28,17 @@ class Home extends Component {
     this.setState({ productsList, initialMsg });
   };
 
+  clickHandlerCategories = async (idCategories) => {
+    const { results } = await api.getProductsFromCategoryAndQuery(idCategories);
+    this.setState({ productsList: [] });
+    const productsList = results.map(({ thumbnail, title, price, id }) => ({
+      thumbnail, title, price, id,
+    }));
+    const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
+    this.setState({ productsList, initialMsg });
+    console.log(idCategories);
+  };
+
   changeHandler = ({ target: { value } }) => {
     this.setState({ term: value });
   };
@@ -58,13 +69,17 @@ class Home extends Component {
               type="button"
             >
               Carrinho de Compras
+              {/* oi */}
             </button>
           </Link>
         </div>
 
         <div className="container-main">
           <div className="container-menu">
-            <Categories categories={ categories } />
+            <Categories
+              categories={ categories }
+              clickHandlerCategories={ this.clickHandlerCategories }
+            />
           </div>
           <div className="container">
             <p data-testid="home-initial-message">{initialMsg}</p>
