@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
+import SearchItem from '../components/SearchItem';
+import Categories from '../components/Categories';
+import '../styles/Home.css';
 
 class Home extends Component {
   state = {
     productsList: [],
     term: '',
-    initialRender: true,
     categories: [],
+    initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
   };
 
   componentDidMount() {
@@ -17,13 +20,12 @@ class Home extends Component {
 
   clickHandler = async () => {
     const { term } = this.state;
-    const result = await api.getProductsFromCategoryAndQuery(undefined, term);
-    this.setState({ productsList: [], initialRender: false });
-    result.results.forEach(({ thumbnail, title, price, id }) => {
-      this.setState(({ productsList }) => ({
-        productsList: [...productsList, { thumbnail, title, price, id }],
-      }));
-    });
+    const { results } = await api.getProductsFromCategoryAndQuery(undefined, term);
+    const productsList = results.map(({ thumbnail, title, price, id }) => ({
+      thumbnail, title, price, id,
+    }));
+    const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
+    this.setState({ productsList, initialMsg });
   };
 
   changeHandler = ({ target: { value } }) => {
@@ -36,54 +38,39 @@ class Home extends Component {
   };
 
   render() {
-    const { productsList, term, initialRender, categories } = this.state;
+    const { productsList, term, categories, initialMsg } = this.state;
     const itemList = productsList.map((item) => (
       <ItemCard { ...item } key={ item.id } />
     ));
     return (
       <div>
-        <label htmlFor="Home">
-          <input
-            type="text"
-            id="Home"
-            data-testid="query-input"
-            value={ term }
-            onChange={ this.changeHandler }
+        <div className="container-header">
+          <SearchItem
+            term={ term }
+            changeHandler={ this.changeHandler }
+            clickHandler={ this.clickHandler }
           />
-        </label>
-        <button
-          data-testid="query-button"
-          type="button"
-          onClick={ this.clickHandler }
-        >
-          Buscar
-        </button>
-        {initialRender && (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        )}
-        {productsList.length === 0 && (
-          <p>
-            Nenhum produto foi encontrado
-          </p>
-        )}
-        {itemList}
-
-        {categories.map((category) => (
-          <button
-            type="button"
-            key={ category.id }
-            data-testid="category"
-            onClick={ () => this.getProductsFromCategoryAndQuery(category.id) }
+          <Link
+            to="/shoppingcart"
+            data-testid="shopping-cart-button"
           >
-            {category.name}
-          </button>
-        ))}
+            <button
+              type="button"
+            >
+              Carrinho de Compras
+            </button>
+          </Link>
+        </div>
 
-        <Link to="/shoppingcart" data-testid="shopping-cart-button">
-          Carrinho de Compras
-        </Link>
+        <div className="container-main">
+          <div className="container-menu">
+            <Categories categories={ categories } />
+          </div>
+          <div className="container">
+            <p data-testid="home-initial-message">{initialMsg}</p>
+            {itemList}
+          </div>
+        </div>
       </div>
     );
   }

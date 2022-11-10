@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import '../styles/ItemCard.css';
 
 class ItemCard extends Component {
   render() {
     const { thumbnail, title, price } = this.props;
+    const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
     return (
-      <div data-testid="product">
-        <img src={ thumbnail } alt={ title } />
-        <p>{title}</p>
-        <p>{price}</p>
+      <div className="container-list">
+        <div
+          data-testid="product"
+          className="container-item"
+        >
+          <img src={ thumbnail } alt={ title } width="100" height="100" />
+          <p>{title}</p>
+          <p>{`R$ ${newPrice}`}</p>
+        </div>
       </div>
     );
   }
