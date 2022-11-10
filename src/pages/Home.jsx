@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
+import SearchItem from '../components/SearchItem';
+import Categories from '../components/Categories';
+import '../styles/Home.css';
 
 class Home extends Component {
   state = {
@@ -42,48 +45,43 @@ class Home extends Component {
     ));
     return (
       <div>
-        <label htmlFor="Home">
-          <input
-            type="text"
-            id="Home"
-            data-testid="query-input"
-            value={ term }
-            onChange={ this.changeHandler }
+        <div className="container-header">
+          <SearchItem
+            term={ term }
+            changeHandler={ this.changeHandler }
+            clickHandler={ this.clickHandler }
           />
-        </label>
-        <button
-          data-testid="query-button"
-          type="button"
-          onClick={ this.clickHandler }
-        >
-          Buscar
-        </button>
+          <Link
+            to="/shoppingcart"
+            data-testid="shopping-cart-button"
+          >
+            <button
+              type="button"
+            >
+              Carrinho de Compras
+            </button>
+          </Link>
+        </div>
+
         {initialRender && (
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         )}
-        {productsList.length === 0 && (
-          <p>
-            Nenhum produto foi encontrado
-          </p>
-        )}
-        {itemList}
 
-        {categories.map((category) => (
-          <button
-            type="button"
-            key={ category.id }
-            data-testid="category"
-            onClick={ () => this.getProductsFromCategoryAndQuery(category.id) }
-          >
-            {category.name}
-          </button>
-        ))}
-
-        <Link to="/shoppingcart" data-testid="shopping-cart-button">
-          Carrinho de Compras
-        </Link>
+        <div className="container-main">
+          <div className="container-menu">
+            <Categories categories={ categories } />
+          </div>
+          <div className="container">
+            {productsList.length === 0 && (
+              <div className="text">
+                Nenhum produto foi encontrado
+              </div>
+            )}
+            {itemList}
+          </div>
+        </div>
       </div>
     );
   }
