@@ -1,0 +1,46 @@
+.container-main {
+  display: flex;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.container-menu {
+  background-color: rgb(191, 219, 193);
+  display: flex;
+  min-width: 250px;
+}
+
+.text {
+  align-items: center;
+  display: flex;
+  font-size: 1.5em;
+  justify-content: center;
+  width: 100%;
+}
+
+.container-header {
+  background-color: lightgreen;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.category {
+  background-color: rgb(6, 94, 6);
+  color: white;
+  padding: 5px;
+  width: 200px;
+}
+
+.category:hover {
+  background-color: rgb(65, 62, 62);
+}
+
+ul {
+  list-style: none;
+}
+

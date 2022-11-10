@@ -1,0 +1,14 @@
+.container-list {
+  display: flex;
+  margin: 5px;
+}
+
+.container-item {
+  background-color: rgb(225, 232, 235);
+  display: inline-block;
+  height: 200px;
+  padding-top: 10px;
+  text-align: center;
+  width: 200px;
+}
+
