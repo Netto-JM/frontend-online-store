@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import Button from '../components/Button';
 
 class ProductsDetail extends React.Component {
   state = {
@@ -10,6 +11,7 @@ class ProductsDetail extends React.Component {
     price: 0,
     freeShipping: false,
     warranty: '',
+    productDetail: {},
   };
 
   async componentDidMount() {
@@ -21,11 +23,12 @@ class ProductsDetail extends React.Component {
     const pictures = productDetail.pictures.map((image) => (
       image.url
     ));
-    this.setState({ pictures, title, price, freeShipping, warranty });
+    this.setState({ productDetail, pictures, title, price, freeShipping, warranty });
   }
 
   render() {
-    const { pictures, title, price, freeShipping, warranty } = this.state;
+    const { addToCart } = this.props;
+    const { pictures, title, price, freeShipping, warranty, productDetail } = this.state;
     const productImage = pictures.map((image) => (
       <img
         data-testid="product-detail-image"
@@ -54,12 +57,19 @@ class ProductsDetail extends React.Component {
         </Link>
         <p>{shippingMessage}</p>
         <p>{warranty}</p>
+        <Button
+          buttonText="Adicionar ao carrinho"
+          testid="product-detail-add-to-cart"
+          item={ { ...productDetail } }
+          onClick={ addToCart }
+        />
       </div>
     );
   }
 }
 
 ProductsDetail.propTypes = {
+  addToCart: PropTypes.func.isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,
