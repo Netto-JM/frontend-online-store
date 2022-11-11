@@ -12,11 +12,22 @@ class Home extends Component {
     term: '',
     categories: [],
     initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
+    shoppingCartItems: [],
   };
 
   componentDidMount() {
     this.fetchCategories();
   }
+
+  componentWillUnmount() {
+    const { shoppingCartItems } = this.state;
+    localStorage.setItem('productKeys', JSON.stringify(shoppingCartItems));
+  }
+
+  addToCart = (item) => {
+    const { shoppingCartItems } = this.state;
+    this.setState({ shoppingCartItems: [...shoppingCartItems, item] });
+  };
 
   clickHandler = async () => {
     const { term } = this.state;
@@ -36,7 +47,6 @@ class Home extends Component {
     }));
     const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
     this.setState({ productsList, initialMsg });
-    console.log(idCategories);
   };
 
   changeHandler = ({ target: { value } }) => {
@@ -51,15 +61,15 @@ class Home extends Component {
   render() {
     const { productsList, term, categories, initialMsg } = this.state;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } />
+      <ItemCard { ...item } key={ item.id } onClick={ this.addToCart } />
     ));
     return (
       <div>
         <div className="container-header">
           <SearchItem
             term={ term }
-            changeHandler={ this.changeHandler }
-            clickHandler={ this.clickHandler }
+            onChange={ this.changeHandler }
+            onClick={ this.clickHandler }
           />
           <Link
             to="/shoppingcart"
