@@ -4,16 +4,37 @@ import Home from './pages/Home';
 import ProductsDetail from './pages/ProductsDetail';
 import ShoppingCart from './pages/ShoppingCart';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ Home } />
-        <Route exact path="/shoppingcart" component={ ShoppingCart } />
-        <Route exact path="/productdetail/:id" component={ ProductsDetail } />
-      </Switch>
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  state = {
+    shoppingCartItems: [],
+
+  };
+
+  componentDidUpdate() {
+    const { shoppingCartItems } = this.state;
+    localStorage.setItem('productKeys', JSON.stringify(shoppingCartItems));
+  }
+
+  addToCart = (item) => {
+    const { shoppingCartItems } = this.state;
+    this.setState({ shoppingCartItems: [...shoppingCartItems, item] });
+  };
+
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={ () => <Home addToCart={ this.addToCart } /> }
+          />
+          <Route exact path="/shoppingcart" component={ ShoppingCart } />
+          <Route exact path="/productdetail/:id" component={ ProductsDetail } />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;

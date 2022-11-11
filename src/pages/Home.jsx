@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
 import SearchItem from '../components/SearchItem';
 import Categories from '../components/Categories';
+
 import '../styles/Home.css';
 
 class Home extends Component {
@@ -12,29 +14,16 @@ class Home extends Component {
     term: '',
     categories: [],
     initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
-    shoppingCartItems: [],
   };
 
   componentDidMount() {
     this.fetchCategories();
   }
 
-  componentWillUnmount() {
-    const { shoppingCartItems } = this.state;
-    localStorage.setItem('productKeys', JSON.stringify(shoppingCartItems));
-  }
-
-  addToCart = (item) => {
-    const { shoppingCartItems } = this.state;
-    this.setState({ shoppingCartItems: [...shoppingCartItems, item] });
-  };
-
   clickHandler = async () => {
     const { term } = this.state;
     const { results } = await api.getProductsFromCategoryAndQuery(undefined, term);
-    const productsList = results.map(({ thumbnail, title, price, id }) => ({
-      thumbnail, title, price, id,
-    }));
+    const productsList = results;
     const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
     this.setState({ productsList, initialMsg });
   };
@@ -60,8 +49,9 @@ class Home extends Component {
 
   render() {
     const { productsList, term, categories, initialMsg } = this.state;
+    const { addToCart } = this.props;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } onClick={ this.addToCart } />
+      <ItemCard { ...item } key={ item.id } onClick={ addToCart } />
     ));
     return (
       <div>
@@ -99,5 +89,9 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default Home;
