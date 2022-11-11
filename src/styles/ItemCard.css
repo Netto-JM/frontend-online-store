@@ -6,9 +6,9 @@
 .container-item {
   background-color: rgb(225, 232, 235);
   display: inline-block;
-  height: 230px;
+  height: 300px;
   padding-top: 10px;
   text-align: center;
-  width: 230px;
+  width: 300px;
 }
 
