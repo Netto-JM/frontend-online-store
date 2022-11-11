@@ -61,15 +61,15 @@ class Home extends Component {
   render() {
     const { productsList, term, categories, initialMsg } = this.state;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } clickHandler={ this.addToCart } />
+      <ItemCard { ...item } key={ item.id } onClick={ this.addToCart } />
     ));
     return (
       <div>
         <div className="container-header">
           <SearchItem
             term={ term }
-            changeHandler={ this.changeHandler }
-            clickHandler={ this.clickHandler }
+            onChange={ this.changeHandler }
+            onClick={ this.clickHandler }
           />
           <Link
             to="/shoppingcart"

@@ -23,7 +23,7 @@ class ShoppingCart extends React.Component {
       <ItemCard
         { ...item }
         key={ item.id }
-        clickHandler={ this.removeFromCart }
+        onClick={ this.removeFromCart }
         isShoppingCart
       />
     ));

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class SearchItem extends React.Component {
   render() {
-    const { term, changeHandler, clickHandler } = this.props;
+    const { term, onChange, onClick } = this.props;
     return (
       <div>
         <label htmlFor="Home">
@@ -12,13 +12,13 @@ class SearchItem extends React.Component {
             id="Home"
             data-testid="query-input"
             value={ term }
-            onChange={ changeHandler }
+            onChange={ onChange }
           />
         </label>
         <button
           data-testid="query-button"
           type="button"
-          onClick={ clickHandler }
+          onClick={ onClick }
         >
           Buscar
         </button>
@@ -29,8 +29,8 @@ class SearchItem extends React.Component {
 
 SearchItem.propTypes = {
   term: PropTypes.string.isRequired,
-  changeHandler: PropTypes.func.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default SearchItem;

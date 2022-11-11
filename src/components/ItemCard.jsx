@@ -6,7 +6,7 @@ import Button from './Button';
 
 class ItemCard extends Component {
   render() {
-    const { thumbnail, title, price, id, clickHandler, isShoppingCart } = this.props;
+    const { thumbnail, title, price, id, onClick, isShoppingCart } = this.props;
     const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
     return (
       <div>
@@ -30,14 +30,14 @@ class ItemCard extends Component {
             buttonText="Remover do carrinho"
             // testid="product-add-to-cart"
             id={ id }
-            clickHandler={ clickHandler }
+            onClick={ onClick }
           />
         ) : (
           <Button
             buttonText="Adicionar ao carrinho"
             testid="product-add-to-cart"
             item={ { ...this.props } }
-            clickHandler={ clickHandler }
+            onClick={ onClick }
           />
         )}
       </div>
@@ -54,7 +54,7 @@ ItemCard.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  clickHandler: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   isShoppingCart: PropTypes.bool,
 };
 
