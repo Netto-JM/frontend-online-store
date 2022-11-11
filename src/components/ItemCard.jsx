@@ -19,7 +19,7 @@ class ItemCard extends Component {
               className="container-item"
             >
               <img src={ thumbnail } alt={ title } width="100" height="100" />
-              <p>{title}</p>
+              <p data-testid="shopping-cart-product-name">{title}</p>
               <p>{`R$ ${newPrice}`}</p>
             </div>
           </div>
@@ -28,7 +28,7 @@ class ItemCard extends Component {
         {isShoppingCart ? (
           <Button
             buttonText="Remover do carrinho"
-            testid="product-add-to-cart"
+            // testid="product-add-to-cart"
             id={ id }
             clickHandler={ clickHandler }
           />
@@ -36,7 +36,7 @@ class ItemCard extends Component {
           <Button
             buttonText="Adicionar ao carrinho"
             testid="product-add-to-cart"
-            id={ id }
+            item={ { ...this.props } }
             clickHandler={ clickHandler }
           />
         )}

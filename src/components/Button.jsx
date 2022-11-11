@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 
 class Button extends Component {
   render() {
-    const { buttonText, testid, id, clickHandler } = this.props;
+    const { buttonText, testid, item, clickHandler } = this.props;
     return (
       <button
         data-testid={ testid }
         type="button"
-        onClick={ () => clickHandler(id) }
+        onClick={ () => clickHandler(item) }
       >
         { buttonText }
       </button>
@@ -19,7 +19,12 @@ class Button extends Component {
 Button.propTypes = {
   buttonText: PropTypes.string.isRequired,
   testid: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  item: PropTypes.shape({
+    thumbnail: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
   clickHandler: PropTypes.func.isRequired,
 };
 

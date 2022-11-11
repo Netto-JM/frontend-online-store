@@ -12,7 +12,7 @@ class Home extends Component {
     term: '',
     categories: [],
     initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
-    idList: [],
+    shoppingCartItems: [],
   };
 
   componentDidMount() {
@@ -20,12 +20,13 @@ class Home extends Component {
   }
 
   componentWillUnmount() {
-    const { idList } = this.state;
-    localStorage.setItem('productKeys', JSON.stringify(idList));
+    const { shoppingCartItems } = this.state;
+    localStorage.setItem('productKeys', JSON.stringify(shoppingCartItems));
   }
 
-  addToCart = (id) => {
-    this.setState(({ idList }) => ({ idList: [...idList, id] }));
+  addToCart = (item) => {
+    const { shoppingCartItems } = this.state;
+    this.setState({ shoppingCartItems: [...shoppingCartItems, item] });
   };
 
   clickHandler = async () => {
@@ -46,7 +47,6 @@ class Home extends Component {
     }));
     const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
     this.setState({ productsList, initialMsg });
-    console.log(idCategories);
   };
 
   changeHandler = ({ target: { value } }) => {
