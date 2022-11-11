@@ -12,11 +12,21 @@ class Home extends Component {
     term: '',
     categories: [],
     initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
+    idList: [],
   };
 
   componentDidMount() {
     this.fetchCategories();
   }
+
+  componentWillUnmount() {
+    const { idList } = this.state;
+    localStorage.setItem('productKeys', JSON.stringify(idList));
+  }
+
+  addToCart = (id) => {
+    this.setState(({ idList }) => ({ idList: [...idList, id] }));
+  };
 
   clickHandler = async () => {
     const { term } = this.state;
@@ -51,7 +61,7 @@ class Home extends Component {
   render() {
     const { productsList, term, categories, initialMsg } = this.state;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } />
+      <ItemCard { ...item } key={ item.id } clickHandler={ this.addToCart } />
     ));
     return (
       <div>
