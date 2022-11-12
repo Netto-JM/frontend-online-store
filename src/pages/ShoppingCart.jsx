@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ItemCard from '../components/ItemCard';
 
 class ShoppingCart extends React.Component {
@@ -6,12 +7,18 @@ class ShoppingCart extends React.Component {
     productsList: [],
     uniqueList: [],
     quantity: {},
+    numberOfRenders: 0,
   };
 
   componentDidMount() {
-    const productsList = JSON.parse(localStorage.getItem('productKeys'));
+    this.toMountAndUpdate();
+  }
+
+  toMountAndUpdate = () => {
+    const { shoppingCartItems } = this.props;
+    const productsList = shoppingCartItems;
     if (productsList) {
-      this.setState({ productsList });
+      // this.setState({ productsList });
       const quantity = {};
       productsList.forEach((item) => {
         if (!quantity[item.id]) {
@@ -28,23 +35,41 @@ class ShoppingCart extends React.Component {
           unique[productsList[i].id] = 1;
         }
       }
-      this.setState({ uniqueList: distinct, quantity });
+      this.setState({ uniqueList: distinct, quantity, productsList });
     }
-  }
+  };
 
-  removeFromCart() {
-    console.log('removed');
-  }
+  completeRemoveFromCart = () => {
+    console.log('completeRemoveFromCart');
+  };
 
   render() {
-    const { uniqueList, productsList, quantity } = this.state;
+    const { uniqueList, productsList, quantity, numberOfRenders } = this.state;
+    const { addToCart, removeFromCart } = this.props;
+
+    const addAndRender = (item) => {
+      addToCart(item);
+      this.toMountAndUpdate();
+    };
+    const removeAndRender = (item) => {
+      removeFromCart(item);
+      this.toMountAndUpdate();
+    };
+
+    console.log('uniqueList', uniqueList);
+    console.log('quantity', quantity);
+
     const itemList = uniqueList.map((item) => (
       <ItemCard
         { ...item }
         key={ item.id }
-        onClick={ this.removeFromCart }
+        onClick={ this.completeRemoveFromCart }
         isShoppingCart
         quantity={ quantity[item.id] }
+        addToCart={ addAndRender }
+        removeFromCart={ removeAndRender }
+        renderCart={ this.renderCart }
+        item={ item }
       />
     ));
 
@@ -56,14 +81,17 @@ class ShoppingCart extends React.Component {
           </p>
         )}
         <div className="container">
-          { itemList }
+          {itemList}
+          {numberOfRenders}
         </div>
-        <p data-testid="shopping-cart-product-quantity">
-          { `Quantidade de items: ${productsList.length}` }
-        </p>
       </div>
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+};
 
 export default ShoppingCart;
