@@ -100,3 +100,13 @@ export function addComment({ productId, rating, email, text }) {
 export function getComment(productId) {
   return getKeyFromLocalStorage(productId, []);
 }
+
+export function getTotal() {
+  const cartItems = getCartItems();
+  const totalPrice = cartItems.reduce((acc, curr) => {
+    const { quantity, item: { price } } = curr;
+    const total = quantity * price;
+    return acc + total;
+  }, 0);
+  return totalPrice;
+}
