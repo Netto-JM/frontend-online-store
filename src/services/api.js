@@ -27,14 +27,6 @@ export async function getProductById(PRODUCT_ID) {
   return data;
 }
 
-export function addToCart() {
-  // TODO: criar
-}
-
-export function removeFromCart() {
-  // TODO: criar
-}
-
 const getKeyFromLocalStorage = (key, defaultValue) => {
   const data = localStorage.getItem(key);
   if (!data) {
@@ -46,6 +38,54 @@ const getKeyFromLocalStorage = (key, defaultValue) => {
 const setKeyFromLocalStorage = (key, data) => {
   localStorage.setItem(key, JSON.stringify(data));
 };
+
+export function getCartItems() {
+  const cartItems = getKeyFromLocalStorage('productKeys', []);
+  return cartItems;
+}
+
+export function addToCart(item) {
+  const cartItems = getKeyFromLocalStorage('productKeys', []);
+  const curItem = cartItems.find(({ id }) => id === item.id);
+  if (!curItem) {
+    cartItems.push({
+      id: item.id,
+      quantity: 1,
+      item,
+    });
+  }
+
+  if (curItem) {
+    curItem.quantity += 1;
+  }
+  setKeyFromLocalStorage('productKeys', cartItems);
+}
+
+export function removeFromCart(item) {
+  const cartItems = getKeyFromLocalStorage('productKeys', []);
+  const curItem = cartItems.find(({ id }) => id === item.id);
+  if (!curItem) {
+    return;
+  }
+
+  if (curItem.quantity <= 1) {
+    return;
+  }
+
+  curItem.quantity -= 1;
+  setKeyFromLocalStorage('productKeys', cartItems);
+}
+
+export function removeCompleteItemFromCart(item) {
+  const cartItems = getKeyFromLocalStorage('productKeys', []);
+  const index = cartItems.findIndex(({ id }) => id === item.id);
+
+  const notFound = -1;
+  if (index !== notFound) {
+    cartItems.splice(index, 1);
+  }
+  setKeyFromLocalStorage('productKeys', cartItems);
+}
 
 export function addComment({ productId, rating, email, text }) {
   const comments = getKeyFromLocalStorage(productId, []);

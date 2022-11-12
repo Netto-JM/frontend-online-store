@@ -6,9 +6,25 @@
 .container-item {
   background-color: rgb(225, 232, 235);
   display: inline-block;
-  height: 300px;
+  height: 250px;
   padding-top: 10px;
   text-align: center;
-  width: 300px;
+  width: 250px;
 }
 
+.input-group-increase-decrease {
+  align-items: center;
+  display: flex;
+  font-size: 1.2em;
+  justify-content: space-evenly;
+  width: 50%;
+}
+
+.container-btn {
+  display: flex;
+  justify-content: center;
+}
+
+.input-remove-cart {
+  text-align: center;
+}

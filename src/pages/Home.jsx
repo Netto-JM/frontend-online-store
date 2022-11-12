@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
@@ -30,7 +29,6 @@ class Home extends Component {
 
   clickHandlerCategories = async (idCategories) => {
     const { results } = await api.getProductsFromCategoryAndQuery(idCategories);
-    console.log(results);
     const productsList = results.map(({ thumbnail, title, price, id }) => ({
       thumbnail, title, price, id,
     }));
@@ -49,9 +47,8 @@ class Home extends Component {
 
   render() {
     const { productsList, term, categories, initialMsg } = this.state;
-    const { addToCart } = this.props;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } key={ item.id } onClick={ addToCart } />
+      <ItemCard { ...item } item={ item } key={ item.id } />
     ));
     return (
       <div>
@@ -89,9 +86,5 @@ class Home extends Component {
     );
   }
 }
-
-Home.propTypes = {
-  addToCart: PropTypes.func.isRequired,
-};
 
 export default Home;

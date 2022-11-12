@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import RatingForm from '../components/RatingForm';
 import ProductComments from '../components/ProductComments';
-import { getProductById, getComment } from '../services/api';
+import { addToCart, getProductById, getComment } from '../services/api';
 import '../styles/ProductDetail.css';
 
 class ProductsDetail extends React.Component {
@@ -42,7 +42,6 @@ class ProductsDetail extends React.Component {
     if (!productDetail) {
       return (<div>Carregando</div>);
     }
-    const { addToCart } = this.props;
     const {
       pictures,
       title,
@@ -94,7 +93,6 @@ class ProductsDetail extends React.Component {
 }
 
 ProductsDetail.propTypes = {
-  addToCart: PropTypes.func.isRequired,
   match: PropTypes.shape({
     isExact: PropTypes.bool.isRequired,
     path: PropTypes.string.isRequired,

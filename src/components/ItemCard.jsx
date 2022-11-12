@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FaPlusCircle, FaMinusCircle, FaTrashAlt } from 'react-icons/fa';
 import Button from './Button';
+import { addToCart, removeFromCart, removeCompleteItemFromCart } from '../services/api';
 import '../styles/ItemCard.css';
 
 class ItemCard extends Component {
@@ -11,12 +13,10 @@ class ItemCard extends Component {
       title,
       price,
       id,
-      onClick,
       isShoppingCart,
       quantity,
-      addToCart,
-      removeFromCart,
       item,
+      onUpdateShoppingCartItems,
     } = this.props;
     const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
     return (
@@ -38,39 +38,51 @@ class ItemCard extends Component {
 
         {isShoppingCart && (
           <div>
-            <button
-              onClick={ () => removeFromCart(item) }
-              type="button"
-              data-testid="product-decrease-quantity"
-            >
-              Remover
-            </button>
-            <p data-testid="shopping-cart-product-quantity">
-              {`quantidade ${quantity}`}
-            </p>
-            <button
-              onClick={ () => addToCart(item) }
-              type="button"
-              data-testid="product-increase-quantity"
-            >
-              Adicionar
-            </button>
+            <div className="container-btn">
+              <div className="input-group-increase-decrease">
+                <FaMinusCircle
+                  onClick={ () => {
+                    removeFromCart(item);
+                    onUpdateShoppingCartItems();
+                  } }
+                  type="button"
+                  data-testid="product-decrease-quantity"
+                />
+                <p data-testid="shopping-cart-product-quantity">
+                  {quantity}
+                </p>
+                <FaPlusCircle
+                  onClick={ () => {
+                    addToCart(item);
+                    onUpdateShoppingCartItems();
+                  } }
+                  type="button"
+                  data-testid="product-increase-quantity"
+                />
+              </div>
+            </div>
+            <div className="input-remove-cart">
+              <FaTrashAlt
+                onClick={ () => {
+                  removeCompleteItemFromCart(item);
+                  onUpdateShoppingCartItems();
+                } }
+                color="red"
+                data-testid="remove-product"
+              />
+            </div>
           </div>
         )}
 
-        {isShoppingCart ? (
-          <Button
-            buttonText="Remover do carrinho"
-            // testid="product-add-to-cart"
-            id={ id }
-            onClick={ onClick }
-          />
-        ) : (
+        {!isShoppingCart && (
           <Button
             buttonText="Adicionar ao carrinho"
             testid="product-add-to-cart"
             item={ { ...this.props } }
-            onClick={ onClick }
+            onClick={ () => {
+              addToCart(item);
+              onUpdateShoppingCartItems();
+            } }
           />
         )}
       </div>
@@ -81,8 +93,7 @@ class ItemCard extends Component {
 ItemCard.defaultProps = {
   isShoppingCart: false,
   item: {},
-  addToCart: () => {},
-  removeFromCart: () => {},
+  onUpdateShoppingCartItems: () => {},
 };
 
 ItemCard.propTypes = {
@@ -91,11 +102,9 @@ ItemCard.propTypes = {
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
   isShoppingCart: PropTypes.bool,
-  addToCart: PropTypes.func,
-  removeFromCart: PropTypes.func,
   item: PropTypes.shape(),
+  onUpdateShoppingCartItems: PropTypes.func,
 };
 
 export default ItemCard;
