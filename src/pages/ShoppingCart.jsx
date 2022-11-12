@@ -15,10 +15,9 @@ class ShoppingCart extends React.Component {
   }
 
   toMountAndUpdate = () => {
-    const { shoppingCartItems } = this.props;
-    const productsList = shoppingCartItems;
-    if (productsList) {
-      // this.setState({ productsList });
+    const data = localStorage.getItem('productKeys');
+    if (data) {
+      const productsList = JSON.parse(data);
       const quantity = {};
       productsList.forEach((item) => {
         if (!quantity[item.id]) {
@@ -55,9 +54,6 @@ class ShoppingCart extends React.Component {
       removeFromCart(item);
       this.toMountAndUpdate();
     };
-
-    console.log('uniqueList', uniqueList);
-    console.log('quantity', quantity);
 
     const itemList = uniqueList.map((item) => (
       <ItemCard

@@ -26,3 +26,11 @@ export async function getProductById(PRODUCT_ID) {
   const data = await response.json();
   return data;
 }
+
+export function addToCart() {
+
+}
+
+export function removeFromCart() {
+  
+}

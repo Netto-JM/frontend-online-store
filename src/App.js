@@ -14,30 +14,31 @@ class App extends React.Component {
   //   localStorage.getItem('productKeys', JSON.stringify(shoppingCartItems));
   // }
 
-  componentDidUpdate() {
-    const { shoppingCartItems } = this.state;
-    localStorage.setItem('productKeys', JSON.stringify(shoppingCartItems));
-  }
+  updateLocalStorage = (items) => localStorage
+    .setItem('productKeys', JSON.stringify(items));
 
   addToCart = (item) => {
     const { shoppingCartItems } = this.state;
-    this.setState({ shoppingCartItems: [...shoppingCartItems, item] });
+    const updatedShoppingCartItems = [...shoppingCartItems, item];
+    this.updateLocalStorage(updatedShoppingCartItems);
+    this.setState({ shoppingCartItems: updatedShoppingCartItems });
   };
 
   removeFromCart = (item) => {
-    console.log('remove');
     const { shoppingCartItems } = this.state;
     const index = shoppingCartItems.findIndex((object) => object.id === item.id);
+
     const noIndex = -1;
     if (index === noIndex) return;
-    this.setState((prevState) => {
-      const newCart = prevState.shoppingCartItems.splice(index, 1);
-      return newCart;
+    const updatedShoppingCartItems = shoppingCartItems
+      .filter((_, i) => i !== index);
+    this.updateLocalStorage(updatedShoppingCartItems);
+    this.setState({
+      shoppingCartItems: updatedShoppingCartItems,
     });
   };
 
   render() {
-    const { shoppingCartItems } = this.state;
     return (
       <BrowserRouter>
         <Switch>
@@ -54,7 +55,6 @@ class App extends React.Component {
                 { ...props }
                 addToCart={ this.addToCart }
                 removeFromCart={ this.removeFromCart }
-                shoppingCartItems={ shoppingCartItems }
               />) }
           />
           <Route
