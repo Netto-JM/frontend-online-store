@@ -1,0 +1,36 @@
+.form-rating {
+  border: 1px solid black;
+  margin: auto;
+  padding: 20px;
+  width: 60%;
+}
+
+.input-group [ name = 'text' ] {
+  resize: none;
+  width: 100%;
+}
+
+.input-group {
+  padding: 10px;
+}
+
+.input-group [ name = 'email' ] {
+  margin-left: 5px;
+}
+
+.center {
+  text-align: center;
+}
+
+.input-group [ data-testid = 'submit-review-btn' ] {
+  text-align: center;
+  width: 50%;
+}
+
+.alert-message {
+  background-color: rgba(255, 255, 0, 0.699);
+  border: 2px solid gold;
+  border-radius: 15px;
+  text-align: center;
+  width: 100%;
+}

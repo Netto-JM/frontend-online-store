@@ -30,7 +30,7 @@ class Home extends Component {
 
   clickHandlerCategories = async (idCategories) => {
     const { results } = await api.getProductsFromCategoryAndQuery(idCategories);
-    this.setState({ productsList: [] });
+    console.log(results);
     const productsList = results.map(({ thumbnail, title, price, id }) => ({
       thumbnail, title, price, id,
     }));

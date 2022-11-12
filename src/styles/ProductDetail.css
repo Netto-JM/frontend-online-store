@@ -1,0 +1,29 @@
+.container-detail {
+  margin: 20px;
+}
+
+.container-comments {
+  padding: 50px;
+}
+
+.comment-item {
+  background-color: rgba(211, 211, 211, 0.344);
+  border: 3px outset gray;
+  margin-top: 10px;
+  padding: 5px;
+}
+
+.container-email-rating {
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.comment-item-email {
+  font-weight: 500;
+  width: 30%;
+}
+
+.comment-item-evaluation {
+  margin: auto;
+  width: 100%;
+}

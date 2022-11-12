@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ProductsDetail from './pages/ProductsDetail';
 import ShoppingCart from './pages/ShoppingCart';
@@ -40,34 +40,32 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={ () => <Home addToCart={ this.addToCart } /> }
-          />
-          <Route
-            exact
-            path="/shoppingcart"
-            render={ (props) => (
-              <ShoppingCart
-                { ...props }
-                addToCart={ this.addToCart }
-                removeFromCart={ this.removeFromCart }
-              />) }
-          />
-          <Route
-            exact
-            path="/productdetail/:id"
-            render={ (props) => (
-              <ProductsDetail
-                { ...props }
-                addToCart={ this.addToCart }
-              />) }
-          />
-        </Switch>
-      </BrowserRouter>
+      <Switch>
+        <Route
+          exact
+          path="/"
+          render={ () => <Home addToCart={ this.addToCart } /> }
+        />
+        <Route
+          exact
+          path="/shoppingcart"
+          render={ (props) => (
+            <ShoppingCart
+              { ...props }
+              addToCart={ this.addToCart }
+              removeFromCart={ this.removeFromCart }
+            />) }
+        />
+        <Route
+          exact
+          path="/productdetail/:id"
+          render={ (props) => (
+            <ProductsDetail
+              { ...props }
+              addToCart={ this.addToCart }
+            />) }
+        />
+      </Switch>
     );
   }
 }

@@ -28,9 +28,35 @@ export async function getProductById(PRODUCT_ID) {
 }
 
 export function addToCart() {
-
+  // TODO: criar
 }
 
 export function removeFromCart() {
-  
+  // TODO: criar
+}
+
+const getKeyFromLocalStorage = (key, defaultValue) => {
+  const data = localStorage.getItem(key);
+  if (!data) {
+    return defaultValue;
+  }
+  return JSON.parse(data);
+};
+
+const setKeyFromLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export function addComment({ productId, rating, email, text }) {
+  const comments = getKeyFromLocalStorage(productId, []);
+  comments.push({
+    rating,
+    email,
+    text,
+  });
+  setKeyFromLocalStorage(productId, comments);
+}
+
+export function getComment(productId) {
+  return getKeyFromLocalStorage(productId, []);
 }
