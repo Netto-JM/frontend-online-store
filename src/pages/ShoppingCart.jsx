@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { getCartItems } from '../services/api';
 import ItemCard from '../components/ItemCard';
 
 class ShoppingCart extends React.Component {
@@ -7,24 +9,28 @@ class ShoppingCart extends React.Component {
   };
 
   componentDidMount() {
-    const productsList = JSON.parse(localStorage.getItem('productKeys'));
-    if (productsList) {
-      this.setState({ productsList });
-    }
+    this.toMountAndUpdate();
   }
 
-  removeFromCart() {
-    console.log('removed');
-  }
+  toMountAndUpdate = () => {
+    const productsList = getCartItems();
+    this.setState({
+      productsList,
+    });
+  };
 
   render() {
     const { productsList } = this.state;
-    const itemList = productsList.map((item) => (
+
+    const itemList = productsList.map(({ id, item, quantity }) => (
       <ItemCard
         { ...item }
-        key={ item.id }
-        onClick={ this.removeFromCart }
+        key={ id }
         isShoppingCart
+        quantity={ quantity }
+        renderCart={ this.renderCart }
+        item={ item }
+        onUpdateShoppingCartItems={ this.toMountAndUpdate }
       />
     ));
 
@@ -36,14 +42,16 @@ class ShoppingCart extends React.Component {
           </p>
         )}
         <div className="container">
-          { itemList }
+          {itemList}
         </div>
-        <p data-testid="shopping-cart-product-quantity">
-          { `Quantidade de items: ${productsList.length}` }
-        </p>
       </div>
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
+};
 
 export default ShoppingCart;
