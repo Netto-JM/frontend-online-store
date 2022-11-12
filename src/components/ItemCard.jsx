@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import '../styles/ItemCard.css';
 import { Link } from 'react-router-dom';
 import Button from './Button';
+import '../styles/ItemCard.css';
 
 class ItemCard extends Component {
   render() {

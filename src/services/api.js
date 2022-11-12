@@ -26,3 +26,29 @@ export async function getProductById(PRODUCT_ID) {
   const data = await response.json();
   return data;
 }
+
+const getKeyFromLocalStorage = (key, defaultValue) => {
+  const data = localStorage.getItem(key);
+  if (!data) {
+    return defaultValue;
+  }
+  return JSON.parse(data);
+};
+
+const setKeyFromLocalStorage = (key, data) => {
+  localStorage.setItem(key, JSON.stringify(data));
+};
+
+export function addComment({ productId, rating, email, text }) {
+  const comments = getKeyFromLocalStorage(productId, []);
+  comments.push({
+    rating,
+    email,
+    text,
+  });
+  setKeyFromLocalStorage(productId, comments);
+}
+
+export function getComment(productId) {
+  return getKeyFromLocalStorage(productId, []);
+}
