@@ -48,7 +48,8 @@ export function addToCart(item) {
   const cartItems = getKeyFromLocalStorage('productKeys', []);
   const curItem = cartItems.find(({ id }) => id === item.id);
   if (curItem) {
-    curItem.quantity += 1;
+    const { quantity, item: { availableQuantity } } = curItem;
+    curItem.quantity += quantity >= availableQuantity ? 0 : 1;
   } else {
     cartItems.push({
       id: item.id,
@@ -63,15 +64,8 @@ export function addToCart(item) {
 export function removeFromCart(item) {
   const cartItems = getKeyFromLocalStorage('productKeys', []);
   const curItem = cartItems.find(({ id }) => id === item.id);
-  if (!curItem) {
-    return;
-  }
-
-  if (curItem.quantity <= 1) {
-    return;
-  }
-
-  curItem.quantity -= 1;
+  if (!curItem) return;
+  curItem.quantity -= curItem.quantity <= 1 ? 0 : 1;
   setKeyFromLocalStorage('productKeys', cartItems);
 }
 
