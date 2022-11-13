@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { getCartItems } from '../services/api';
 import ItemCard from '../components/ItemCard';
 
@@ -41,9 +42,12 @@ class ShoppingCart extends React.Component {
             Seu carrinho está vazio
           </p>
         )}
-        <div className="container">
-          {itemList}
-        </div>
+        <div className="container">{itemList}</div>
+        <Link to="/payment">
+          <button type="button" data-testid="checkout-products">
+            Finalizar Compra
+          </button>
+        </Link>
       </div>
     );
   }

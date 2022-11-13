@@ -1,0 +1,17 @@
+.cart-items-icon {
+  font-size: 2em;
+}
+
+[ data-testid = 'shopping-cart-button' ] {
+  text-decoration: none;
+}
+
+.cart-item-icon-count {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.589);
+  border-radius: 2px;
+  color: black;
+  font-size: small;
+  font-weight: 500;
+  padding: 3px;
+}

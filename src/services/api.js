@@ -47,7 +47,10 @@ export function getCartItems() {
 export function addToCart(item) {
   const cartItems = getKeyFromLocalStorage('productKeys', []);
   const curItem = cartItems.find(({ id }) => id === item.id);
-  if (!curItem) {
+  if (curItem) {
+    const { quantity, item: { availableQuantity } } = curItem;
+    curItem.quantity += quantity >= availableQuantity ? 0 : 1;
+  } else {
     cartItems.push({
       id: item.id,
       quantity: 1,
@@ -55,24 +58,14 @@ export function addToCart(item) {
     });
   }
 
-  if (curItem) {
-    curItem.quantity += 1;
-  }
   setKeyFromLocalStorage('productKeys', cartItems);
 }
 
 export function removeFromCart(item) {
   const cartItems = getKeyFromLocalStorage('productKeys', []);
   const curItem = cartItems.find(({ id }) => id === item.id);
-  if (!curItem) {
-    return;
-  }
-
-  if (curItem.quantity <= 1) {
-    return;
-  }
-
-  curItem.quantity -= 1;
+  if (!curItem) return;
+  curItem.quantity -= curItem.quantity <= 1 ? 0 : 1;
   setKeyFromLocalStorage('productKeys', cartItems);
 }
 
@@ -99,4 +92,20 @@ export function addComment({ productId, rating, email, text }) {
 
 export function getComment(productId) {
   return getKeyFromLocalStorage(productId, []);
+}
+
+export function getTotal() {
+  const cartItems = getCartItems();
+  const totalPrice = cartItems.reduce((acc, curr) => {
+    const { quantity, item: { price } } = curr;
+    const total = quantity * price;
+    return acc + total;
+  }, 0);
+  return totalPrice;
+}
+
+export function getTotalQuantity() {
+  const cartItems = getCartItems();
+  const totalQuantity = cartItems.reduce((acc, curr) => (acc + curr.quantity), 0);
+  return totalQuantity;
 }

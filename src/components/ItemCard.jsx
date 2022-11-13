@@ -93,12 +93,13 @@ class ItemCard extends Component {
 ItemCard.defaultProps = {
   isShoppingCart: false,
   item: {},
+  quantity: 0,
   onUpdateShoppingCartItems: () => {},
 };
 
 ItemCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
+  quantity: PropTypes.number,
   title: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
