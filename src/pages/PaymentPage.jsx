@@ -36,7 +36,9 @@ class PaymentPage extends Component {
   clickHandler = (event) => {
     console.log(event);
     const isValid = this.validateForm();
-    console.log(isValid);
+    if (isValid) {
+      localStorage.removeItem('productKeys');
+    }
   };
 
   changeHandler = ({ target: { name, value } }) => {
