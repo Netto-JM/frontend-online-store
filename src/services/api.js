@@ -110,3 +110,9 @@ export function getTotal() {
   }, 0);
   return totalPrice;
 }
+
+export function getTotalQuantity() {
+  const cartItems = getCartItems();
+  const totalQuantity = cartItems.reduce((acc, curr) => (acc + curr.quantity), 0);
+  return totalQuantity;
+} // não sei se essa função é tão necessária, req 13 não passa, ele quer total de itens únicos?
