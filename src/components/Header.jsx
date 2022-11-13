@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 import SearchItem from './SearchItem';
+
+import '../styles/Header.css';
 
 class Header extends Component {
   render() {
@@ -17,12 +20,13 @@ class Header extends Component {
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
-          <button
-            type="button"
+          <FaShoppingCart className="cart-items-icon" color="darkgreen" />
+          <span
+            className="cart-item-icon-count"
+            data-testid="shopping-cart-size"
           >
-            Carrinho de Compras
-          </button>
-          <span data-testid="shopping-cart-size">{totalQuantity}</span>
+            {totalQuantity}
+          </span>
         </Link>
       </div>
     );

@@ -18,6 +18,8 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchCategories();
+    const totalQuantity = getTotalQuantity();
+    this.setState({ totalQuantity });
   }
 
   clickHandler = async () => {
