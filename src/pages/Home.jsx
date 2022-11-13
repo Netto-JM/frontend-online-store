@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import ItemCard from '../components/ItemCard';
 import * as api from '../services/api';
-import SearchItem from '../components/SearchItem';
 import Categories from '../components/Categories';
+import Header from '../components/Header';
+import { getTotalQuantity } from '../services/api';
 
 import '../styles/Home.css';
 
@@ -13,6 +13,7 @@ class Home extends Component {
     term: '',
     categories: [],
     initialMsg: 'Digite algum termo de pesquisa ou escolha uma categoria.',
+    totalQuantity: 0,
   };
 
   componentDidMount() {
@@ -45,30 +46,30 @@ class Home extends Component {
     this.setState({ categories: response });
   };
 
+  onUpdateShoppingCartItems = () => {
+    const totalQuantity = getTotalQuantity();
+    this.setState({ totalQuantity });
+  };
+
   render() {
-    const { productsList, term, categories, initialMsg } = this.state;
+    const { productsList, categories, term, initialMsg, totalQuantity } = this.state;
     const itemList = productsList.map((item) => (
-      <ItemCard { ...item } item={ item } key={ item.id } />
+      <ItemCard
+        { ...item }
+        item={ item }
+        key={ item.id }
+        onUpdateShoppingCartItems={ this.onUpdateShoppingCartItems }
+      />
     ));
     return (
       <div>
-        <div className="container-header">
-          <SearchItem
-            term={ term }
-            onChange={ this.changeHandler }
-            onClick={ this.clickHandler }
-          />
-          <Link
-            to="/shoppingcart"
-            data-testid="shopping-cart-button"
-          >
-            <button
-              type="button"
-            >
-              Carrinho de Compras
-            </button>
-          </Link>
-        </div>
+        <Header
+          term={ term }
+          changeHandler={ this.changeHandler }
+          clickHandler={ this.clickHandler }
+          totalQuantity={ totalQuantity }
+          activeSearch
+        />
 
         <div className="container-main">
           <div className="container-menu">

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import RatingForm from '../components/RatingForm';
 import ProductComments from '../components/ProductComments';
-import { addToCart, getProductById, getComment } from '../services/api';
+import { addToCart, getProductById, getComment, getTotalQuantity } from '../services/api';
+import Header from '../components/Header';
 import '../styles/ProductDetail.css';
 
 class ProductsDetail extends React.Component {
@@ -16,17 +17,27 @@ class ProductsDetail extends React.Component {
     warranty: '',
     productDetail: null,
     comments: [],
+    totalQuantity: 0,
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const productDetail = await getProductById(id);
+    const totalQuantity = getTotalQuantity();
     const { title, price, shipping, warranty } = productDetail;
     const { free_shipping: freeShipping } = shipping;
     const pictures = productDetail.pictures.map((image) => (
       image.url
     ));
-    this.setState({ productDetail, pictures, title, price, freeShipping, warranty });
+    this.setState({
+      productDetail,
+      pictures,
+      title,
+      price,
+      freeShipping,
+      warranty,
+      totalQuantity,
+    });
     this.onUpdateComments();
   }
 
@@ -34,6 +45,11 @@ class ProductsDetail extends React.Component {
     const { match: { params: { id } } } = this.props;
     const comments = getComment(id);
     this.setState({ comments });
+  };
+
+  onUpdateShoppingCartItems = () => {
+    const totalQuantity = getTotalQuantity();
+    this.setState({ totalQuantity });
   };
 
   render() {
@@ -49,6 +65,7 @@ class ProductsDetail extends React.Component {
       freeShipping,
       warranty,
       comments,
+      totalQuantity,
     } = this.state;
     const { match: { params: { id: productId } } } = this.props;
     const productImage = pictures.map((image) => (
@@ -64,19 +81,13 @@ class ProductsDetail extends React.Component {
 
     return (
       <div className="container-detail">
+        <Header
+          totalQuantity={ totalQuantity }
+          activeSearch={ false }
+        />
         <h2 data-testid="product-detail-name">{title}</h2>
         {productImage}
         <p data-testid="product-detail-price">{ price }</p>
-        <Link
-          to="/shoppingcart"
-          data-testid="shopping-cart-button"
-        >
-          <button
-            type="button"
-          >
-            Carrinho de Compras
-          </button>
-        </Link>
         <p>{shippingMessage}</p>
         <p>{warranty}</p>
         <Button
@@ -84,6 +95,7 @@ class ProductsDetail extends React.Component {
           testid="product-detail-add-to-cart"
           item={ { ...productDetail } }
           onClick={ addToCart }
+          onUpdateShoppingCartItems={ this.onUpdateShoppingCartItems }
         />
         <RatingForm productId={ productId } onUpdateComments={ this.onUpdateComments } />
         <ProductComments comments={ comments } />
