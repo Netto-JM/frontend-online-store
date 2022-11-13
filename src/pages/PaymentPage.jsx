@@ -92,6 +92,7 @@ class PaymentPage extends Component {
             name="fullName"
             value={ fullName }
             onChange={ this.changeHandler }
+            placeholder="Nome Completo"
             required
           />
           <input
@@ -100,6 +101,7 @@ class PaymentPage extends Component {
             name="email"
             value={ email }
             onChange={ this.changeHandler }
+            placeholder="Email"
             required
           />
           <input
@@ -108,6 +110,7 @@ class PaymentPage extends Component {
             name="cpf"
             value={ cpf }
             onChange={ this.changeHandler }
+            placeholder="CPF"
             required
           />
           <input
@@ -116,6 +119,7 @@ class PaymentPage extends Component {
             name="phone"
             value={ phone }
             onChange={ this.changeHandler }
+            placeholder="Telefone"
             required
           />
           <input
@@ -124,6 +128,7 @@ class PaymentPage extends Component {
             name="cep"
             value={ cep }
             onChange={ this.changeHandler }
+            placeholder="CEP"
             required
           />
           <input
@@ -132,6 +137,7 @@ class PaymentPage extends Component {
             name="address"
             value={ address }
             onChange={ this.changeHandler }
+            placeholder="Endereço"
             required
           />
           <p>Método de Pagamento</p>
