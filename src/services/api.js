@@ -47,7 +47,9 @@ export function getCartItems() {
 export function addToCart(item) {
   const cartItems = getKeyFromLocalStorage('productKeys', []);
   const curItem = cartItems.find(({ id }) => id === item.id);
-  if (!curItem) {
+  if (curItem) {
+    curItem.quantity += 1;
+  } else {
     cartItems.push({
       id: item.id,
       quantity: 1,
@@ -55,9 +57,6 @@ export function addToCart(item) {
     });
   }
 
-  if (curItem) {
-    curItem.quantity += 1;
-  }
   setKeyFromLocalStorage('productKeys', cartItems);
 }
 
