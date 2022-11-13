@@ -32,9 +32,16 @@ class Home extends Component {
 
   clickHandlerCategories = async (idCategories) => {
     const { results } = await api.getProductsFromCategoryAndQuery(idCategories);
-    const productsList = results.map(({ thumbnail, title, price, id }) => ({
-      thumbnail, title, price, id,
-    }));
+    console.log(results[0]);
+    const productsList = results.map(
+      ({ thumbnail, title, price, id, available_quantity: availableQuantity }) => ({
+        thumbnail,
+        title,
+        price,
+        id,
+        availableQuantity, // renomeação necessária por causa do camelCase
+      }),
+    );
     const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
     this.setState({ productsList, initialMsg });
   };
