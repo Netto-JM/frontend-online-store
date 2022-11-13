@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import PurchaseDetails from '../components/PurchaseDetails';
 import { getTotal, getCartItems } from '../services/api';
 
@@ -33,11 +34,12 @@ class PaymentPage extends Component {
     return isValid;
   };
 
-  clickHandler = (event) => {
-    console.log(event);
+  clickHandler = () => {
     const isValid = this.validateForm();
     if (isValid) {
       localStorage.removeItem('productKeys');
+      const { history } = this.props;
+      history.push('/');
     }
   };
 
@@ -192,5 +194,9 @@ class PaymentPage extends Component {
     );
   }
 }
+
+PaymentPage.propTypes = {
+  history: PropTypes.shape().isRequired,
+};
 
 export default PaymentPage;
