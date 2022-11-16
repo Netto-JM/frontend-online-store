@@ -34,12 +34,19 @@ class Home extends Component {
     const { results } = await api.getProductsFromCategoryAndQuery(idCategories);
     console.log(results[0]);
     const productsList = results.map(
-      ({ thumbnail, title, price, id, available_quantity: availableQuantity }) => ({
+      ({ thumbnail,
+        title,
+        price,
+        id,
+        available_quantity: availableQuantity,
+        shipping: { free_shipping: freeShipping },
+      }) => ({
         thumbnail,
         title,
         price,
         id,
         availableQuantity, // renomeação necessária por causa do camelCase
+        freeShipping,
       }),
     );
     const initialMsg = productsList.length === 0 ? 'Nenhum produto foi encontrado' : '';
