@@ -75,9 +75,9 @@ class ProductsDetail extends React.Component {
     const productImage = pictures.map((image) => (
       <img
         data-testid="product-detail-image"
+        key={ image }
         src={ image }
         alt="Product"
-        key={ image }
         className="imagem"
       />
     ));
@@ -85,6 +85,8 @@ class ProductsDetail extends React.Component {
     const shippingMessage = freeShipping ? 'Entrega grátis' : ' à consultar';
 
     const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
+
+    const newCondition = condition === 'new' ? 'novo' : 'usado';
 
     return (
       <div className="container-detail">
@@ -101,9 +103,9 @@ class ProductsDetail extends React.Component {
           </div>
           <div className="container-detail-price">
             <div data-testid="product-detail-price">{ ` Valor: R$ ${newPrice}` }</div>
-            <div>{`Frete: ${shippingMessage}`}</div>
+            <div className="frete">{`Frete: ${shippingMessage}`}</div>
             { warranty }
-            <div>{`Condição: ${condition}`}</div>
+            <div>{`Condição: ${newCondition}`}</div>
             <Button
               buttonText="Adicionar ao carrinho"
               testid="product-detail-add-to-cart"

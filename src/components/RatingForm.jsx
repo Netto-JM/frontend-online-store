@@ -62,6 +62,7 @@ class RatingForm extends Component {
     const { ratings, rating, text, email, isValid, hasChanges } = this.state;
     return (
       <form className="form-rating">
+        <h2>Avalie o produto: </h2>
         <div className="container-input-email-rate">
           <div className="input-group">
             <label
