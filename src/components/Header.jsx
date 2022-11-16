@@ -8,14 +8,27 @@ import '../styles/Header.css';
 
 class Header extends Component {
   render() {
-    const { changeHandler, clickHandler, term, activeSearch, totalQuantity } = this.props;
+    const {
+      changeHandler,
+      clickHandler,
+      term,
+      activeSearch,
+      totalQuantity,
+      notHome,
+    } = this.props;
+
     return (
       <div className="container-header">
-        {activeSearch && (<SearchItem
-          term={ term }
-          onChange={ changeHandler }
-          onClick={ clickHandler }
-        />)}
+        {activeSearch && (
+          <>
+            <SearchItem
+              term={ term }
+              onChange={ changeHandler }
+              onClick={ clickHandler }
+            />
+            <h1>FrontEnd Online Store</h1>
+          </>
+        )}
         <Link
           to="/shoppingcart"
           data-testid="shopping-cart-button"
@@ -28,6 +41,20 @@ class Header extends Component {
             {totalQuantity}
           </span>
         </Link>
+        { notHome && (
+          <>
+            <h1>FrontEnd Online Store</h1>
+            <Link
+              to="/"
+            >
+              <button
+                type="button"
+              >
+                Voltar à Home
+              </button>
+            </Link>
+          </>
+        )}
       </div>
     );
   }
@@ -36,6 +63,7 @@ class Header extends Component {
 Header.defaultProps = {
   term: '',
   activeSearch: false,
+  notHome: false,
 };
 
 Header.propTypes = {
@@ -44,6 +72,7 @@ Header.propTypes = {
   term: PropTypes.string,
   activeSearch: PropTypes.bool,
   totalQuantity: PropTypes.number.isRequired,
+  notHome: PropTypes.bool,
 };
 
 export default Header;

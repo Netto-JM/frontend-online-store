@@ -85,6 +85,7 @@ class Home extends Component {
           clickHandler={ this.clickHandler }
           totalQuantity={ totalQuantity }
           activeSearch
+          notHome={ false }
         />
 
         <div className="container-main">

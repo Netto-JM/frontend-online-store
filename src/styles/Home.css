@@ -14,13 +14,6 @@
   min-width: 250px;
 }
 
-.container-header {
-  background-color: lightgreen;
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
-
 .category {
   background-color: rgb(6, 94, 6);
   color: white;

@@ -15,3 +15,11 @@
   font-weight: 500;
   padding: 3px;
 }
+
+.container-header {
+  align-items: center;
+  background-color: lightgreen;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}

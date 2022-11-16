@@ -23,7 +23,7 @@ class ProductsDetail extends React.Component {
     const { match: { params: { id } } } = this.props;
     const productDetail = await getProductById(id);
     const totalQuantity = getTotalQuantity();
-    const { title, price, shipping, warranty } = productDetail;
+    const { title, price, shipping, warranty, condition } = productDetail;
     const { free_shipping: freeShipping } = shipping;
     const pictures = productDetail.pictures.map((image) => (
       image.url
@@ -36,6 +36,7 @@ class ProductsDetail extends React.Component {
       freeShipping,
       warranty,
       totalQuantity,
+      condition,
     });
     this.onUpdateComments();
   }
@@ -57,6 +58,7 @@ class ProductsDetail extends React.Component {
     if (!productDetail) {
       return (<div>Carregando</div>);
     }
+
     const {
       pictures,
       title,
@@ -65,37 +67,51 @@ class ProductsDetail extends React.Component {
       warranty,
       comments,
       totalQuantity,
+      condition,
     } = this.state;
+
     const { match: { params: { id: productId } } } = this.props;
+
     const productImage = pictures.map((image) => (
       <img
         data-testid="product-detail-image"
         src={ image }
         alt="Product"
         key={ image }
+        className="imagem"
       />
     ));
 
-    const shippingMessage = freeShipping ? 'Entrega grátis' : 'Vai ter que pagar amigão';
+    const shippingMessage = freeShipping ? 'Entrega grátis' : ' à consultar';
+
+    const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
 
     return (
       <div className="container-detail">
         <Header
           totalQuantity={ totalQuantity }
           activeSearch={ false }
+          notHome
         />
         <h2 data-testid="product-detail-name">{title}</h2>
-        {productImage}
-        <p data-testid="product-detail-price">{ price }</p>
-        <p>{shippingMessage}</p>
-        <p>{warranty}</p>
-        <Button
-          buttonText="Adicionar ao carrinho"
-          testid="product-detail-add-to-cart"
-          item={ { ...productDetail } }
-          onClick={ addToCart }
-          onUpdateShoppingCartItems={ this.onUpdateShoppingCartItems }
-        />
+        <div className="container-detail-product">
+          <div className="container-product-detail-img">
+            {productImage}
+          </div>
+          <div className="container-detail-price">
+            <div data-testid="product-detail-price">{ ` Valor: R$ ${newPrice}` }</div>
+            <div>{`Frete: ${shippingMessage}`}</div>
+            { warranty && <div>{`Garantia: ${warranty}`}</div>}
+            <div>{`Condição: ${condition}`}</div>
+            <Button
+              buttonText="Adicionar ao carrinho"
+              testid="product-detail-add-to-cart"
+              item={ { ...productDetail } }
+              onClick={ addToCart }
+              onUpdateShoppingCartItems={ this.onUpdateShoppingCartItems }
+            />
+          </div>
+        </div>
         <RatingForm productId={ productId } onUpdateComments={ this.onUpdateComments } />
         <ProductComments comments={ comments } />
       </div>
