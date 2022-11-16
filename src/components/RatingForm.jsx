@@ -62,47 +62,49 @@ class RatingForm extends Component {
     const { ratings, rating, text, email, isValid, hasChanges } = this.state;
     return (
       <form className="form-rating">
-        <div className="input-group">
-          <label
-            htmlFor="input-email"
-          >
-            Email:
-            <input
-              type="email"
-              data-testid="product-detail-email"
-              onChange={ this.handleChange }
-              id="input-email"
-              placeholder="email@email.com"
-              name="email"
-              value={ email }
-            />
-          </label>
-        </div>
-        <div className="input-group">
-          <p>Avaliação:</p>
-          {ratings.map(({ index }) => (
+        <div className="container-input-email-rate">
+          <div className="input-group">
             <label
-              key={ index }
-              htmlFor={ `input-rate-${index}` }
+              htmlFor="input-email"
             >
-              {index}
+              Email:
               <input
-                type="radio"
-                id={ `input-rate-${index}` }
-                data-testid={ `${index}-rating` }
-                value={ index }
-                name="rating"
-                checked={ index === Number(rating) }
+                type="email"
+                data-testid="product-detail-email"
                 onChange={ this.handleChange }
+                id="input-email"
+                placeholder="email@email.com"
+                name="email"
+                value={ email }
               />
             </label>
-          ))}
+          </div>
+          <div className="input-group">
+            <p>Avaliação:</p>
+            {ratings.map(({ index }) => (
+              <label
+                key={ index }
+                htmlFor={ `input-rate-${index}` }
+              >
+                {index}
+                <input
+                  type="radio"
+                  id={ `input-rate-${index}` }
+                  data-testid={ `${index}-rating` }
+                  value={ index }
+                  name="rating"
+                  checked={ index === Number(rating) }
+                  onChange={ this.handleChange }
+                />
+              </label>
+            ))}
+          </div>
         </div>
         <div className="input-group">
           <label
             htmlFor="input-textarea"
           >
-            Comentario
+            Comentario:
             <textarea
               data-testid="product-detail-evaluation"
               id="input-textarea"

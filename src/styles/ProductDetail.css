@@ -4,14 +4,15 @@
 
 .comment-item {
   background-color: rgba(211, 211, 211, 0.344);
-  border: 3px outset gray;
+  border: 2px outset rgba(128, 128, 128, 0.61);
   margin-top: 10px;
-  padding: 5px;
+  padding: 15px;
 }
 
 .container-email-rating {
   display: flex;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
+  padding: 5px;
 }
 
 .comment-item-email {
@@ -25,18 +26,22 @@
 }
 
 .container-detail-product {
+  align-content: center;
   display: flex;
   justify-content: center;
+  margin: auto;
+  min-height: 500px;
+  width: 80%;
 }
 
 .container-product-detail-img {
   align-items: center;
-  border: 2px solid red;
+  background-color: rgba(222, 250, 215, 0.404);
   display: flex;
   flex-wrap: wrap;
-  height: 500px;
   justify-content: space-around;
-  margin-bottom: 40px;
+  min-height: 500px;
+  padding: 20px 5px;
   width: 70%;
 }
 
@@ -45,19 +50,25 @@
 }
 
 .container-detail-price {
-  align-items: center;
-  border: 2px solid blue;
+  align-items: stretch;
+  background-color: rgba(204, 235, 204, 0.616);
   display: flex;
-  flex-direction: column;
-  height: 500px;
+  flex-flow: column wrap;
+  font-size: 1.2em;
   justify-content: space-evenly;
+  min-height: 500px;
+  padding: 10px 20px;
   text-align: center;
   width: 25%;
 }
 
 .imagem {
-  border: 1px solid rgba(0, 0, 0, 0.158);
-  border-radius: 10px;
-  height: 200px;
+  height: auto;
+  margin: 5px;
   width: 200px;
+}
+
+.title-page-detail {
+  color: forestgreen;
+  text-align: center;
 }

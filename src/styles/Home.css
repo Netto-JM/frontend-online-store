@@ -17,12 +17,13 @@
 .category {
   background-color: rgb(6, 94, 6);
   color: white;
-  padding: 5px;
+  padding: 10px;
   width: 200px;
 }
 
 .category:hover {
-  background-color: rgb(65, 62, 62);
+  background-color: white;
+  color: rgb(6, 94, 6);
 }
 
 ul {
@@ -30,3 +31,18 @@ ul {
   padding: 0 5px 0 25px;
 }
 
+button {
+  background-color: forestgreen;
+  color: white;
+  font-weight: 700;
+  padding: 5px;
+}
+
+button:hover {
+  background-color: rgb(191, 219, 193);
+  color: black;
+}
+
+input {
+  padding: 5px;
+}

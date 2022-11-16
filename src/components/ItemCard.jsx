@@ -24,21 +24,40 @@ class ItemCard extends Component {
 
     return (
       <div>
-        <Link
-          to={ `/productdetail/${id}` }
-        >
-          <div className="container-list" data-testid="product-detail-link">
-            <div
-              data-testid="product"
-              className="container-item"
-            >
-              <img src={ thumbnail } alt={ title } width="100" height="100" />
-              <p data-testid="shopping-cart-product-name">{title}</p>
-              <p>{`R$ ${newPrice}`}</p>
-              {freeShipping && <p data-testid="free-shipping">Entrega grátis</p> }
-            </div>
+        <div className="container-list" data-testid="product-detail-link">
+          <div
+            data-testid="product"
+            className="container-item"
+          >
+            <img src={ thumbnail } alt={ title } className="img" />
+            <p data-testid="shopping-cart-product-name">{title}</p>
+            <p>{`R$ ${newPrice}`}</p>
+            {freeShipping && <p data-testid="free-shipping">Entrega gratis</p> }
           </div>
-        </Link>
+          <div>
+            <Link
+              to={ `/productdetail/${id}` }
+            >
+              <button
+                type="button"
+                className="btn-details"
+              >
+                Ver detalhes
+              </button>
+            </Link>
+            {!isShoppingCart && (
+              <Button
+                buttonText="Adicionar ao carrinho"
+                testid="product-add-to-cart"
+                item={ { ...this.props } }
+                onClick={ () => {
+                  addToCart(item);
+                  onUpdateShoppingCartItems();
+                } }
+              />
+            )}
+          </div>
+        </div>
 
         {isShoppingCart && (
           <div>
@@ -76,18 +95,6 @@ class ItemCard extends Component {
               />
             </div>
           </div>
-        )}
-
-        {!isShoppingCart && (
-          <Button
-            buttonText="Adicionar ao carrinho"
-            testid="product-add-to-cart"
-            item={ { ...this.props } }
-            onClick={ () => {
-              addToCart(item);
-              onUpdateShoppingCartItems();
-            } }
-          />
         )}
       </div>
     );

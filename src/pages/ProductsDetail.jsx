@@ -93,6 +93,7 @@ class ProductsDetail extends React.Component {
           activeSearch={ false }
           notHome
         />
+        <h1 className="title-page-detail">Detalhes do Produto</h1>
         <h2 data-testid="product-detail-name">{title}</h2>
         <div className="container-detail-product">
           <div className="container-product-detail-img">
@@ -101,7 +102,7 @@ class ProductsDetail extends React.Component {
           <div className="container-detail-price">
             <div data-testid="product-detail-price">{ ` Valor: R$ ${newPrice}` }</div>
             <div>{`Frete: ${shippingMessage}`}</div>
-            { warranty && <div>{`Garantia: ${warranty}`}</div>}
+            { warranty }
             <div>{`Condição: ${condition}`}</div>
             <Button
               buttonText="Adicionar ao carrinho"

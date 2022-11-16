@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaHome, FaOpencart } from 'react-icons/fa';
 import SearchItem from './SearchItem';
 
 import '../styles/Header.css';
@@ -26,14 +26,18 @@ class Header extends Component {
               onChange={ changeHandler }
               onClick={ clickHandler }
             />
-            <h1>FrontEnd Online Store</h1>
+            <h1>
+              Fontend Online Store
+              {' '}
+              <FaOpencart />
+            </h1>
           </>
         )}
         <Link
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
-          <FaShoppingCart className="cart-items-icon" color="darkgreen" />
+          <FaShoppingCart className="cart-items-icon" color="white" />
           <span
             className="cart-item-icon-count"
             data-testid="shopping-cart-size"
@@ -43,15 +47,15 @@ class Header extends Component {
         </Link>
         { notHome && (
           <>
-            <h1>FrontEnd Online Store</h1>
+            <h1>
+              Fontend Online Store
+              {' '}
+              <FaOpencart />
+            </h1>
             <Link
               to="/"
             >
-              <button
-                type="button"
-              >
-                Voltar à Home
-              </button>
+              <FaHome className="cart-items-icon" color="white" />
             </Link>
           </>
         )}
