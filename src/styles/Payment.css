@@ -1,9 +1,9 @@
 .container-resume-prod {
   align-items: center;
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 50px;
   padding: 20px;
 }
 
@@ -25,10 +25,9 @@
 }
 
 .itens-prod {
-
   display: flex;
-  margin: 5px;
   justify-content: center;
+  margin: 5px;
   padding: 10px 20px;
 }
 
@@ -44,4 +43,48 @@
   border: 1px inset rgba(211, 211, 211, 0.205);
   height: 100px;
   width: 100px;
+}
+
+.form-buyer {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  justify-content: space-around;
+  margin: 80px auto;
+  padding: 5px;
+  width: 80%;
+}
+
+.title-page-buyer {
+  color: forestgreen;
+}
+
+.container-payment input {
+  margin-bottom: 30px;
+  margin-right: 10px;
+}
+
+.icon-payment {
+  font-size: 2.5em;
+  margin-right: 15px;
+}
+
+.input {
+  align-content: space-around;
+  display: flex;
+  padding: 15px;
+  width: 50%;
+}
+
+.input input {
+  padding: 10px;
+  width: 90%;
+}
+
+.btn-form-buyer {
+  font-size: 1.2em;
+  margin: 20px auto;
+  padding: 15px;
+  width: 350px;
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FaCcVisa, FaCcMastercard, FaRegCreditCard, FaBarcode } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 import PurchaseDetails from '../components/PurchaseDetails';
 import { getTotal, getCartItems } from '../services/api';
@@ -98,109 +99,124 @@ class PaymentPage extends Component {
           </div>
         )}
 
-        <form>
-          <input
-            type="text"
-            data-testid="checkout-fullname"
-            name="fullName"
-            value={ fullName }
-            onChange={ this.changeHandler }
-            placeholder="Nome Completo"
-            required
-          />
-          <input
-            type="email"
-            data-testid="checkout-email"
-            name="email"
-            value={ email }
-            onChange={ this.changeHandler }
-            placeholder="Email"
-            required
-          />
-          <input
-            type="text"
-            data-testid="checkout-cpf"
-            name="cpf"
-            value={ cpf }
-            onChange={ this.changeHandler }
-            placeholder="CPF"
-            required
-          />
-          <input
-            type="phone"
-            data-testid="checkout-phone"
-            name="phone"
-            value={ phone }
-            onChange={ this.changeHandler }
-            placeholder="Telefone"
-            required
-          />
-          <input
-            type="text"
-            data-testid="checkout-cep"
-            name="cep"
-            value={ cep }
-            onChange={ this.changeHandler }
-            placeholder="CEP"
-            required
-          />
-          <input
-            type="text"
-            data-testid="checkout-address"
-            name="address"
-            value={ address }
-            onChange={ this.changeHandler }
-            placeholder="Endereço"
-            required
-          />
-          <p>Método de Pagamento</p>
-          <label htmlFor="boleto">
+        <form className="form-buyer">
+          <h2 className="title-page-buyer">Dados do comprador</h2>
+          <div className="input">
             <input
-              type="radio"
-              name="method"
-              id="boleto"
-              value="boleto"
-              data-testid="ticket-payment"
+              type="text"
+              data-testid="checkout-fullname"
+              name="fullName"
+              value={ fullName }
               onChange={ this.changeHandler }
+              placeholder="Nome Completo"
               required
             />
-            Boleto
-            {/* Aqui seria apenas a imagem de um código de barras como mostra no README */}
-          </label>
-          <label htmlFor="visa">
+          </div>
+          <div className="input">
             <input
-              type="radio"
-              name="method"
-              id="visa"
-              value="visa"
-              data-testid="visa-payment"
+              type="email"
+              data-testid="checkout-email"
+              name="email"
+              value={ email }
               onChange={ this.changeHandler }
+              placeholder="Email"
+              required
             />
-            Visa
-          </label>
-          <label htmlFor="master">
+          </div>
+          <div className="input">
             <input
-              type="radio"
-              name="method"
-              id="master"
-              value="master"
-              data-testid="master-payment"
+              type="text"
+              data-testid="checkout-cpf"
+              name="cpf"
+              value={ cpf }
               onChange={ this.changeHandler }
+              placeholder="CPF"
+              required
             />
-            MasterCard
-          </label>
-          <label htmlFor="elo">
+          </div>
+          <div className="input">
             <input
-              type="radio"
-              name="method"
-              id="elo"
-              value="elo"
-              data-testid="elo-payment"
+              type="phone"
+              data-testid="checkout-phone"
+              name="phone"
+              value={ phone }
               onChange={ this.changeHandler }
+              placeholder="Telefone"
+              required
             />
-            Elo
-          </label>
+          </div>
+          <div className="input">
+            <input
+              type="text"
+              data-testid="checkout-cep"
+              name="cep"
+              value={ cep }
+              onChange={ this.changeHandler }
+              placeholder="CEP"
+              required
+            />
+          </div>
+          <div className="input">
+            <input
+              type="text"
+              data-testid="checkout-address"
+              name="address"
+              value={ address }
+              onChange={ this.changeHandler }
+              placeholder="Endereço"
+              required
+            />
+          </div>
+          <div className="container-payment">
+            <p className="title-page-buyer">Método de Pagamento</p>
+            <label htmlFor="boleto" className="icon-payment">
+              <input
+                type="radio"
+                name="method"
+                id="boleto"
+                value="boleto"
+                data-testid="ticket-payment"
+                onChange={ this.changeHandler }
+                required
+              />
+              <FaBarcode />
+            </label>
+            <label htmlFor="visa" className="icon-payment">
+              <input
+                type="radio"
+                name="method"
+                id="visa"
+                value="visa"
+                data-testid="visa-payment"
+                onChange={ this.changeHandler }
+              />
+              <FaCcVisa />
+            </label>
+            <label htmlFor="master" className="icon-payment">
+              <input
+                type="radio"
+                name="method"
+                id="master"
+                value="master"
+                data-testid="master-payment"
+                onChange={ this.changeHandler }
+              />
+              <FaCcMastercard />
+            </label>
+            <label htmlFor="elo" className="icon-payment">
+              <input
+                type="radio"
+                name="method"
+                id="elo"
+                value="elo"
+                data-testid="elo-payment"
+                onChange={ this.changeHandler }
+              />
+              <FaRegCreditCard />
+            </label>
+          </div>
           <button
+            className="btn-form-buyer"
             type="button"
             data-testid="checkout-btn"
             onClick={ this.clickHandler }
