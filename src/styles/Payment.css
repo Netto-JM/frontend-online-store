@@ -1,0 +1,47 @@
+.container-resume-prod {
+  align-items: center;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container-resume {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  width: 80%;
+}
+
+
+.fora {
+  align-items: center;
+  background-color: rgba(211, 211, 211, 0.288);
+  display: flex;
+  justify-content: space-around;
+  margin: 10px 15px;
+  width: 100%;
+}
+
+.itens-prod {
+
+  display: flex;
+  margin: 5px;
+  justify-content: center;
+  padding: 10px 20px;
+}
+
+.title {
+  width: 50%;
+}
+
+.desc {
+  width: 20%;
+}
+
+.img-prod {
+  border: 1px inset rgba(211, 211, 211, 0.205);
+  height: 100px;
+  width: 100px;
+}

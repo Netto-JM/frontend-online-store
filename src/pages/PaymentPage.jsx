@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import PurchaseDetails from '../components/PurchaseDetails';
 import { getTotal, getCartItems } from '../services/api';
+import Header from '../components/Header';
+import '../styles/Payment.css';
 
 class PaymentPage extends Component {
   state = {
@@ -60,6 +62,7 @@ class PaymentPage extends Component {
     } = this.state;
 
     const totalPrice = getTotal();
+    const newPrice = parseFloat(totalPrice).toFixed(2).replace('.', ',');
 
     const itemList = productsList.map(
       ({ id, quantity, item: { thumbnail, title, price } }) => (
@@ -75,16 +78,26 @@ class PaymentPage extends Component {
 
     return (
       <div>
+        <Header
+          activeSearch={ false }
+          notHome
+          notShop={ false }
+        />
+
         {productsList.length === 0 ? (
           <p data-testid="shopping-cart-empty-message">
             Seu carrinho está vazio
           </p>
         ) : (
-          <div>
-            {itemList}
-            {`Total da compra, ${totalPrice}`}
+          <div className="container-resume-prod">
+            <div className="container-resume">
+              <h2 className="title-page-detail">Resumo da compra</h2>
+              {itemList}
+            </div>
+            <div className="total-price">{`Total da compra: R$ ${newPrice}`}</div>
           </div>
         )}
+
         <form>
           <input
             type="text"

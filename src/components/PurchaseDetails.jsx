@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { FaPlusCircle, FaMinusCircle, FaTrashAlt } from 'react-icons/fa';
 import '../styles/ItemCard.css';
 
 class PurchaseDetails extends Component {
@@ -13,13 +12,11 @@ class PurchaseDetails extends Component {
     } = this.props;
     const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
     return (
-      <div className="container-list">
-        <div className="container-item">
-          <img src={ thumbnail } alt={ title } width="100" height="100" />
-          <p>{title}</p>
-          <p>{`R$ ${newPrice}`}</p>
-          <p>{quantity}</p>
-        </div>
+      <div className="fora">
+        <img className="img-prod" src={ thumbnail } alt={ title } />
+        <div className="itens-prod title">{title}</div>
+        <div className="itens-prod desc">{`Itens: ${quantity}`}</div>
+        <div className="itens-prod desc">{`R$ ${newPrice}`}</div>
       </div>
     );
   }
