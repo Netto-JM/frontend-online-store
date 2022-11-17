@@ -15,6 +15,7 @@ class Header extends Component {
       activeSearch,
       totalQuantity,
       notHome,
+      notShop,
     } = this.props;
 
     return (
@@ -27,28 +28,30 @@ class Header extends Component {
               onClick={ clickHandler }
             />
             <h1>
-              Fontend Online Store
+              Frontend Online Store
               {' '}
               <FaOpencart />
             </h1>
           </>
         )}
-        <Link
-          to="/shoppingcart"
-          data-testid="shopping-cart-button"
-        >
-          <FaShoppingCart className="cart-items-icon" color="white" />
-          <span
-            className="cart-item-icon-count"
-            data-testid="shopping-cart-size"
+        {notShop && (
+          <Link
+            to="/shoppingcart"
+            data-testid="shopping-cart-button"
           >
-            {totalQuantity}
-          </span>
-        </Link>
+            <FaShoppingCart className="cart-items-icon" color="white" />
+            <span
+              className="cart-item-icon-count"
+              data-testid="shopping-cart-size"
+            >
+              {totalQuantity}
+            </span>
+          </Link>
+        )}
         { notHome && (
           <>
             <h1>
-              Fontend Online Store
+              Frontend Online Store
               {' '}
               <FaOpencart />
             </h1>
@@ -68,6 +71,7 @@ Header.defaultProps = {
   term: '',
   activeSearch: false,
   notHome: false,
+  notShop: true,
 };
 
 Header.propTypes = {
@@ -77,6 +81,7 @@ Header.propTypes = {
   activeSearch: PropTypes.bool,
   totalQuantity: PropTypes.number.isRequired,
   notHome: PropTypes.bool,
+  notShop: PropTypes.bool,
 };
 
 export default Header;

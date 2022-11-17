@@ -1,0 +1,20 @@
+.container-prod-final {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 10px auto;
+  padding: 20px;
+  width: 90%;
+}
+
+.total-price {
+  background-color: rgba(117, 197, 117, 0.603);
+  font-size: 1.2em;
+  margin-top: 100px;
+  padding: 20px;
+}
+
+.btn-final {
+  margin-top: 50px;
+}

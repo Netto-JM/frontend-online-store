@@ -84,7 +84,10 @@ class ProductsDetail extends React.Component {
 
     const shippingMessage = freeShipping ? 'Entrega grátis' : ' à consultar';
 
-    const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
+    const priceFloat = parseFloat(price);
+
+    const newPrice = !priceFloat ? 'indisponível'
+      : priceFloat.toFixed(2).replace('.', ',');
 
     const newCondition = condition === 'new' ? 'novo' : 'usado';
 

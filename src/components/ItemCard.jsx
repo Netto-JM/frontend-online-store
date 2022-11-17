@@ -20,7 +20,10 @@ class ItemCard extends Component {
       freeShipping,
     } = this.props;
 
-    const newPrice = Number.parseFloat(price).toFixed(2).replace('.', ',');
+    const priceFloat = parseFloat(price);
+
+    const newPrice = !priceFloat ? 'indisponível'
+      : priceFloat.toFixed(2).replace('.', ',');
 
     return (
       <div>
@@ -35,16 +38,18 @@ class ItemCard extends Component {
             {freeShipping && <p data-testid="free-shipping">Entrega gratis</p> }
           </div>
           <div>
-            <Link
-              to={ `/productdetail/${id}` }
-            >
-              <button
-                type="button"
-                className="btn-details"
+            {!isShoppingCart && (
+              <Link
+                to={ `/productdetail/${id}` }
               >
-                Ver detalhes
-              </button>
-            </Link>
+                <button
+                  type="button"
+                  className="btn-details"
+                >
+                  Ver detalhes
+                </button>
+              </Link>
+            )}
             {!isShoppingCart && (
               <Button
                 buttonText="Adicionar ao carrinho"

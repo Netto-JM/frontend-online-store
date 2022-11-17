@@ -21,6 +21,6 @@
   background-color: rgb(4, 54, 4);
   color: white;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 25px;
 }
