@@ -27,7 +27,7 @@ class ItemCard extends Component {
 
     return (
       <div>
-        <div className="container-list" data-testid="product-detail-link">
+        <div className="container-list">
           <div
             data-testid="product"
             className="container-item"
@@ -41,6 +41,7 @@ class ItemCard extends Component {
             {!isShoppingCart && (
               <Link
                 to={ `/productdetail/${id}` }
+                data-testid="product-detail-link"
               >
                 <button
                   type="button"

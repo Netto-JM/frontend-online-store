@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addComment } from '../services/api';
 import '../styles/RatingForm.css';
+import RatingStars from './RatingStars';
 
 class RatingForm extends Component {
   state = {
@@ -36,6 +37,10 @@ class RatingForm extends Component {
     }, this.validateForm);
   };
 
+  onSelectRating = (rating) => {
+    this.setState({ rating });
+  };
+
   onSubmit = () => {
     const { isValid, email, rating, text } = this.state;
     const { productId, onUpdateComments } = this.props;
@@ -51,7 +56,7 @@ class RatingForm extends Component {
 
     this.setState({
       email: '',
-      rating: 1,
+      rating: 0,
       text: '',
       isValid: false,
       hasChanges: false,
@@ -65,10 +70,8 @@ class RatingForm extends Component {
         <h2>Avalie o produto: </h2>
         <div className="container-input-email-rate">
           <div className="input-group">
-            <label
-              htmlFor="input-email"
-            >
-              Email:
+            <label htmlFor="input-email">
+              <div>Email:</div>
               <input
                 type="email"
                 data-testid="product-detail-email"
@@ -82,14 +85,17 @@ class RatingForm extends Component {
           </div>
           <div className="input-group">
             <p>Avaliação:</p>
+            <RatingStars
+              rating={ Number(rating) }
+              onSelectRating={ this.onSelectRating }
+            />
             {ratings.map(({ index }) => (
               <label
                 key={ index }
                 htmlFor={ `input-rate-${index}` }
               >
-                {index}
                 <input
-                  type="radio"
+                  type="hidden"
                   id={ `input-rate-${index}` }
                   data-testid={ `${index}-rating` }
                   value={ index }

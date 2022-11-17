@@ -6,6 +6,7 @@ import ProductComments from '../components/ProductComments';
 import { addToCart, getProductById, getComment, getTotalQuantity } from '../services/api';
 import Header from '../components/Header';
 import '../styles/ProductDetail.css';
+import AttributesTable from '../components/AttributesTable';
 
 class ProductsDetail extends React.Component {
   state = {
@@ -17,13 +18,15 @@ class ProductsDetail extends React.Component {
     productDetail: null,
     comments: [],
     totalQuantity: 0,
+    attributes: [],
   };
 
   async componentDidMount() {
     const { match: { params: { id } } } = this.props;
     const productDetail = await getProductById(id);
+
     const totalQuantity = getTotalQuantity();
-    const { title, price, shipping, warranty, condition } = productDetail;
+    const { title, price, shipping, warranty, attributes } = productDetail;
     const { free_shipping: freeShipping } = shipping;
     const pictures = productDetail.pictures.map((image) => (
       image.url
@@ -36,7 +39,7 @@ class ProductsDetail extends React.Component {
       freeShipping,
       warranty,
       totalQuantity,
-      condition,
+      attributes,
     });
     this.onUpdateComments();
   }
@@ -67,7 +70,7 @@ class ProductsDetail extends React.Component {
       warranty,
       comments,
       totalQuantity,
-      condition,
+      attributes,
     } = this.state;
 
     const { match: { params: { id: productId } } } = this.props;
@@ -82,14 +85,35 @@ class ProductsDetail extends React.Component {
       />
     ));
 
+    const attributesByGroup = attributes
+      .reduce((acc, {
+        attribute_group_name: group,
+        name,
+        value_name: value,
+      }) => {
+        if (!acc[group]) {
+          acc[group] = [];
+        }
+
+        acc[group].push({ name, value });
+        return acc;
+      }, {});
+
+    const attributeDetails = Object.entries(attributesByGroup)
+      .map(([category, attrs]) => (
+        <AttributesTable
+          key={ category }
+          category={ category }
+          attributes={ attrs }
+        />
+      ));
+
     const shippingMessage = freeShipping ? 'Entrega grátis' : ' à consultar';
 
     const priceFloat = parseFloat(price);
 
     const newPrice = !priceFloat ? 'indisponível'
-      : priceFloat.toFixed(2).replace('.', ',');
-
-    const newCondition = condition === 'new' ? 'novo' : 'usado';
+      : priceFloat.toFixed(2);
 
     return (
       <div className="container-detail">
@@ -105,10 +129,12 @@ class ProductsDetail extends React.Component {
             {productImage}
           </div>
           <div className="container-detail-price">
-            <div data-testid="product-detail-price">{ ` Valor: R$ ${newPrice}` }</div>
+            <div>
+              Valor: R$
+              <span data-testid="product-detail-price">{newPrice}</span>
+            </div>
             <div className="frete">{`Frete: ${shippingMessage}`}</div>
             { warranty }
-            <div>{`Condição: ${newCondition}`}</div>
             <Button
               buttonText="Adicionar ao carrinho"
               testid="product-detail-add-to-cart"
@@ -117,6 +143,9 @@ class ProductsDetail extends React.Component {
               onUpdateShoppingCartItems={ this.onUpdateShoppingCartItems }
             />
           </div>
+        </div>
+        <div className="container-table">
+          {attributeDetails}
         </div>
         <RatingForm productId={ productId } onUpdateComments={ this.onUpdateComments } />
         <ProductComments comments={ comments } />

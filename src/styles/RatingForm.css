@@ -44,6 +44,6 @@
 .container-input-email-rate {
   align-items: center;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 

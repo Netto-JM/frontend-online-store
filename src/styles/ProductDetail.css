@@ -57,9 +57,8 @@
   background-color: rgba(204, 235, 204, 0.616);
   display: flex;
   flex-flow: column wrap;
-  font-size: 1.2em;
   justify-content: space-evenly;
-  max-height: 550px;
+  max-height: 500px;
   padding: 10px 20px;
   text-align: center;
   width: 25%;
@@ -82,4 +81,9 @@
   color: black;
   font-weight: 700;
   padding: 4px;
+}
+
+.container-table {
+  margin: auto;
+  width: 50%;
 }
